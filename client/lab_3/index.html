@@ -25,13 +25,19 @@
           </ol>
           </div>
         </div>
-        <div class="right_section box"> <!-- right side -->
+        <div class="right_section box"> 
+          <!-- right side -->
+          <!-- images box -->
           <h3>Image Carousel</h3>
-          <div class="grid"> <!-- images box -->
-            <img src="images/places1.jpeg"/>
-            <img src='images/places2.jpeg'/>
-            <img src="images/places3.jpeg"/>
-            <img src="images/places4.webp"/>
+          <div class="carousel">
+              <button class="prev">prev</button>
+              <div class="slides"> 
+                <div class="carousel_item visible"><img id="slide_1" src="images/places1.jpeg"/></div>
+                <div class="carousel_item hidden"><img id="slide_2" src='images/places2.jpeg'/></div>
+                <div class="carousel_item hidden"><img id="slide_3" src="images/places3.jpeg"/></div>
+                <div class="carousel_item hidden"><img id="slide_4" src="images/places4.webp"/></div>
+               </div>
+               <button class="next">next</button>
         </div>
         <div class="box">
             <!-- description box -->
