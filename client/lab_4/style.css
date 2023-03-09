@@ -93,7 +93,7 @@ div {
 
 .header h1 {
   display: block;
-  border:2px dashed rgba(0, 0, 0, 0.8);
+  border:3px dashed rgba(0, 0, 0, 0.8);
   /* this will push other blocks out of the way */
 
   /* colors */
