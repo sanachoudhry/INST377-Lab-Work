@@ -57,7 +57,7 @@ form {
 */
 
 div {
-  border:2px dashed rgba(0, 0, 0, 0.8);
+  /* border:2px dashed rgba(0, 0, 0, 0.8); */
 }
 
 
@@ -93,6 +93,7 @@ div {
 
 .header h1 {
   display: block;
+  border:2px dashed rgba(0, 0, 0, 0.8);
   /* this will push other blocks out of the way */
 
   /* colors */
@@ -161,6 +162,7 @@ div {
   background-color: #5B7B7A;
   font-size: 1.2rem;
   font-weight: 600;
+  border:2px dashed rgba(0, 0, 0, 0.8);
 }
 
 .footer a {
