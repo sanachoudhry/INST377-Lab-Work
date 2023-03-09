@@ -30,7 +30,7 @@ body {
   font-family: ‘Segoe UI’, Candara, ‘Bitstream Vera Sans’, ‘DejaVu Sans’, ‘Bitsream Vera Sans’, ‘Trebuchet MS’, Verdana, ‘Verdana Ref’, sans-serif;
   font-weight: 400;
   line-height: 1.5;
-  background-color: rgb(239, 239, 239);
+  background-color: #E0F2E9;
 }
 
 
@@ -39,7 +39,7 @@ a {
   text-decoration: none;
 }
 
-h2 {
+h2, h3 {
   margin:0;
   padding:0;
   padding-bottom:1.5rem;
@@ -55,6 +55,10 @@ form {
   - like this: <div class="wrapper">
   - note that the period vanishes there!
 */
+
+div {
+  border:2px dashed rgba(0, 0, 0, 0.8);
+}
 
 
 .wrapper {
@@ -92,7 +96,7 @@ form {
   /* this will push other blocks out of the way */
 
   /* colors */
-  background-color: #ffe08a;
+  background-color: #E0F2E9;
   color: #4a4a4a;
 
   /* shapes */
@@ -117,7 +121,7 @@ form {
 */
 
 .box {
-  background-color: rgba(239, 239, 239, 0.40);
+  background-color: #CEB5A7;
   border: 2px dashed;
   border-radius: 4px;
 
@@ -128,18 +132,21 @@ form {
 }
 
 .left_section {
-  background-color: rgba(0, 139, 139, 0.8);
+  background-color: #A17C6B;
   flex: 0 1 auto;
   margin: 1rem;
   padding: 1.5rem;
 }
 
 .right_section {
-  background-color: rgba(255, 224, 138, 0.7);
+  background-color: #A17C6B;
   flex: 1 2 auto;
   margin: 1rem;
   align-items: center;
-  max-width: 450px;
+  justify-content: center;
+
+  display: flex;
+  flex-direction: column;
 }
 
 /*
@@ -151,13 +158,13 @@ form {
 .footer {
   flex-shrink: 0;
   padding: 1rem;
-  background-color: rgba(0, 139, 139, 0.8);
+  background-color: #5B7B7A;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 .footer a {
-  color: rgba(255, 224, 138, 1);
+  color: #E0F2E9;
   text-decoration: underline;
 }
 
@@ -168,9 +175,9 @@ form {
 */
 .footer a:hover {
   /* Hue, saturation, luminosity, alpha */
-  background-color: hsla(0, 0%, 90%, 0.15);
+  background-color: #A17C6B;
   /* red, green, blue, alpha */
-  color: rgb(246, 169, 93);
+  color: #CEB5A7;
   text-decoration: none;
 }
 
@@ -301,6 +308,9 @@ form label {
     /* Rules in here will only apply when a screen is the correct size */
     /* check it out by using your developer tools to shrink your screen-size */
     .container {
-      background-color: rgba(204, 8, 162, 0.65);
+      background-color: #5B7B7A;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 }
