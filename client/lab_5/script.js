@@ -3,12 +3,45 @@
   by adding `<script src="script.js">` just before your closing `</body>` tag
 */
 
+function filterList(list, query) {
+  return list.filter((item) => {
+    const lowerCaseName = item.name.toLowerCase();
+    const lowerCaseQuery = query.toLowerCase();
+    return lowerCaseName.includes(lowerCaseQuery);
+  })
+
+}
+
 async function mainEvent() { // the async keyword means we can make API requests
-  const form = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
-  form.addEventListener('submit', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
+  const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
+  const filterButton = document.querySelector('.filter_button');
+
+
+  let currentList = [];
+
+
+  mainForm.addEventListener('submit', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
     submitEvent.preventDefault(); // This prevents your page from going to http://localhost:3000/api even if your form still has an action set on it
     console.log('form submission'); // this is substituting for a "breakpoint"
+  
+    const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
 
+    currentList = await results.json();
+
+    console.table(currentList);
+  })
+
+  filterButton.addEventListener('click', (event) => { 
+    console.log('clicked FilterButton');
+
+    const formData = new FormData(mainForm);
+    const formProps = Object.fromEntries(formData);
+
+    console.log(formProps);
+    const newList = filterList(currentList, formProps.resto);
+  
+    console.log(newList);
+  })
     /*
       ## GET requests and Javascript
         We would like to send our GET request so we can control what we do with the results
@@ -18,8 +51,7 @@ async function mainEvent() { // the async keyword means we can make API requests
     */
 
     // this is the preferred way to handle form data in JS in 2022
-    const formData = new FormData(submitEvent.target); // get the data from the listener target
-    const formProps = Object.fromEntries(formData); // Turn it into an object
+   
 
     // You can also access all forms in a document by using the document.forms collection
     // But this will retrieve ALL forms, not just the one that "heard" a submit event - less good
@@ -35,7 +67,7 @@ async function mainEvent() { // the async keyword means we can make API requests
       // It does not include any of your form values, though
     */
 
-    const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
+    
     /*
    ## Get request with query parameters
 
@@ -55,8 +87,11 @@ async function mainEvent() { // the async keyword means we can make API requests
     console.table(arrayFromJson.data); // this is called "dot notation"
     // arrayFromJson.data - we're accessing a key called 'data' on the returned object
     // it initially contains all 1,000 records from your request
-  });
-}
+  };
+
+  
+
+  
 
 /*
   This adds an event listener that fires our main event only once our page elements have loaded
