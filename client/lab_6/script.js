@@ -37,26 +37,21 @@ function cutRestaurantList() {
 
 async function mainEvent() { // the async keyword means we can make API requests
   const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
-  const filterDataButton = document.querySelector('#filter');
+  const filterButton = document.querySelector('#filter');
   const loadDataButton = document.querySelector('#data_load');
   const generateListButton = document.querySelector('#generate');
-  
-  const loadAnimation = document.querySelector('#data_load_animation');
-  loadAnimation.style.display = 'none';
-  
   let currentList = [];
 
 
   loadDataButton.addEventListener('click', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
-    console.log('Loading data'); // this is substituting for a "breakpoint"
-    loadAnimation.style.display = 'inline-block';
+    submitEvent.preventDefault(); // This prevents your page from going to http://localhost:3000/api even if your form still has an action set on it
+    console.log('form submission'); // this is substituting for a "breakpoint"
   
-
     const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
 
     currentList = await results.json();
-    loadAnimation.style.display = "none";
     console.table(currentList);
+    injectHTML(currentList);
   })
 
   filterDataButton.addEventListener('click', (event) => { 
@@ -82,7 +77,6 @@ async function mainEvent() { // the async keyword means we can make API requests
       ## GET requests and Javascript
         We would like to send our GET request so we can control what we do with the results
         But this blocks us sending a query string by default - ?resto='' won't exist
-
         Let's get those form results before sending off our GET request using the Fetch API
     */
 
@@ -98,7 +92,6 @@ async function mainEvent() { // the async keyword means we can make API requests
         and is much more convenient than previous data handling methods.
         Here we make a basic GET request to the server using the Fetch method
         to send a request to the routes defined in /server/routes/foodServiceRoutes.js
-
       // this is a basic GET request
       // It does not include any of your form values, though
     */
@@ -106,13 +99,10 @@ async function mainEvent() { // the async keyword means we can make API requests
     
     /*
    ## Get request with query parameters
-
       const results = await fetch(`/api/foodServicePG?${new URLSearchParams(formProps)}`);
-
       The above request uses "string interpolation" to include an encoded version of your form values
       It works because it has a ? in the string
       Replace line 37 with it, and try it with a / instead to see what your server console says
-
       You can check what you sent to your server in your GET request
       By opening the "network" tab in your browser developer tools and looking at the "name" column
       This will also show you how long it takes a request to resolve
@@ -135,5 +125,3 @@ async function mainEvent() { // the async keyword means we can make API requests
   In this case, we load some data when the form has submitted
 */
 document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
-
-
