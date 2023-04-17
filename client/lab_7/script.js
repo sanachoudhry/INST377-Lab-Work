@@ -41,6 +41,14 @@ function getRandomIntInclusive(min, max) {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(carto);
+    return carto;
+  }
+
+  function markerPlace(array, map) {
+    console.log('array for markers', array);
+    array.forEach((item) => {
+       console.log('markerPlace', item); 
+    })
   }
   
   async function mainEvent() { // the async keyword means we can make API requests
@@ -53,7 +61,7 @@ function getRandomIntInclusive(min, max) {
     const loadAnimation = document.querySelector('#data_load_animation');
     loadAnimation.style.display = 'none';
 
-    initMap();
+    const carto = initMap();
 
     let currentList = [];
   
@@ -87,6 +95,7 @@ function getRandomIntInclusive(min, max) {
       const restaurantsList = cutRestaurantList(currentList);
       console.log(restaurantsList);
       injectHTML(restaurantsList);
+      markerPlace(currentList, carto);
     })
     
     textField.addEventListener('input', (event) => {
@@ -94,6 +103,7 @@ function getRandomIntInclusive(min, max) {
         const newList = filterList(currentList, formProps.resto);
         console.log(newList);
         injectHTML(newList);
+        markerPlace(newList, carto);
     })
 
       const arrayFromJson = await results.json();
