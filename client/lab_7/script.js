@@ -53,7 +53,7 @@ function getRandomIntInclusive(min, max) {
     const loadAnimation = document.querySelector('#data_load_animation');
     loadAnimation.style.display = 'none';
 
-    initMap()
+    initMap();
 
     let currentList = [];
   
