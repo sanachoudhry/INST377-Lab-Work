@@ -47,6 +47,12 @@ function getRandomIntInclusive(min, max) {
   function markerPlace(array, map) {
     console.log('array for markers', array);
 
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          layer.remove();
+        }
+      });
+
     
     array.forEach((item) => {
        console.log('markerPlace', item);
@@ -57,9 +63,9 @@ function getRandomIntInclusive(min, max) {
   }
   
   async function mainEvent() { // the async keyword means we can make API requests
-    const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
-    const filterDataButton = document.querySelector('#filter');
+    const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on i
     const loadDataButton = document.querySelector('#data_load');
+    const clearDataButton = document.querySelector('#data_clear');
     const generateListButton = document.querySelector('#generate');
     const textField = document.querySelector('#resto')
 
@@ -97,16 +103,24 @@ function getRandomIntInclusive(min, max) {
   
     generateListButton.addEventListener('click',(event) => {
       console.log('generate new list');
-      const restaurantsList = cutRestaurantList(currentList);
-      console.log(restaurantsList);
-      injectHTML(restaurantsList);
+      currentList = cutRestaurantList(parsedData);
+      console.log(currentList);
+      injectHTML(currentList);
+      markerPlace(currentList, carto)
     })
     
     textField.addEventListener('input', (event) => {
         console.log('input', event.target.value);
-        const newList = filterList(currentList, formProps.resto);
+        const newList = filterList(currentList, event.target.value);
         console.log(newList);
         injectHTML(newList);
+        markerPlace(newList, carto);
+    })
+
+    clearDataButton.addEventListener("click", (event) => {
+        console.log('clear browser data');
+        localStorage.clear();
+        console.log('localStorage Check', localStorage.getItem("storedData"))
     })
 
       const arrayFromJson = await results.json();
