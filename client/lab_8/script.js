@@ -71,35 +71,48 @@ function getRandomIntInclusive(min, max) {
 
     const loadAnimation = document.querySelector('#data_load_animation');
     loadAnimation.style.display = 'none';
+    generateListButton.classList.remove("hidden");
 
     const carto = initMap();
+
+    const storedData = localStorage.getItem("storedData");
+    let parsedData = JSON.parse(storedData);
+    if (parsedData?.length > 0) {
+        generateListButton.classList.remove("hidden");
+    }
 
     let currentList = [];
   
   
     loadDataButton.addEventListener('click', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
-      console.log('form submission'); // this is substituting for a "breakpoint"
+      console.log('Loading data'); // this is substituting for a "breakpoint"
       loadAnimation.style.display = 'inline-block';
     
       const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
   
-      currentList = await results.json();
-      console.table(currentList);
-      injectHTML(currentList);
+      const storedList = await results.json();
+      localStorage.setitem("storedData", JSON.stringify(storedList));
+      parsedData = storedList;
+
+      if (parsedData?.length > 0) {
+        generateListButton.classList.remove("hidden");
+      }
+
+      loadAnimation.style.display = "none";
     })
   
-    filterDataButton.addEventListener('click', (event) => { 
-      console.log('clicked filterButton');
+    //filterDataButton.addEventListener('click', (event) => { 
+      //console.log('clicked filterButton');
   
-      const formData = new FormData(mainForm);
-      const formProps = Object.fromEntries(formData);
+      //const formData = new FormData(mainForm);
+      //const formProps = Object.fromEntries(formData);
   
-      console.log(formProps);
-      const newList = filterList(currentList, formProps.resto);
+      //console.log(formProps);
+      //const newList = filterList(currentList, formProps.resto);
     
-      console.log(newList);
-      injectHTML(newList);
-    })
+      //console.log(newList);
+     //injectHTML(newList);
+    //})
   
     generateListButton.addEventListener('click',(event) => {
       console.log('generate new list');
